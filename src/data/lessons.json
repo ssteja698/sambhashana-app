@@ -1,0 +1,482 @@
+[
+  {
+    "day": 1,
+    "type": "video",
+    "title": "Greetings and Introductions",
+    "youtubeId": "Fw0rdSHzWFY",
+    "objectives": "Learn basic greetings and self-introduction phrases.",
+    "reviewable": false
+  },
+  {
+    "day": 2,
+    "type": "video",
+    "title": "Family Members Vocabulary",
+    "youtubeId": "FHaObkHEkHQ",
+    "objectives": "Learn to name and describe family members.",
+    "reviewable": false
+  },
+  {
+    "day": 3,
+    "type": "video",
+    "title": "Daily Routine Phrases",
+    "youtubeId": "oEjyoWQdpes",
+    "objectives": "Learn phrases for describing your daily routine.",
+    "reviewable": false
+  },
+  {
+    "day": 4,
+    "type": "video",
+    "title": "Common Household Items",
+    "youtubeId": "siCapzz1nZc",
+    "objectives": "Identify and name common items at home.",
+    "reviewable": false
+  },
+  {
+    "day": 5,
+    "type": "chat",
+    "title": "Week 1 Review: Greetings & Family",
+    "prompt": "Ask the learner to introduce themselves and talk about their family in English. Give feedback and encouragement.",
+    "objectives": "Review greetings, introductions, and family vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 6,
+    "type": "video",
+    "title": "Shopping Vocabulary",
+    "youtubeId": "ijQDxwUGIOg",
+    "objectives": "Learn words and phrases for shopping.",
+    "reviewable": false
+  },
+  {
+    "day": 7,
+    "type": "video",
+    "title": "Fruits and Vegetables",
+    "youtubeId": "UcGm_PM2IwY",
+    "objectives": "Learn names of fruits and vegetables in English.",
+    "reviewable": false
+  },
+  {
+    "day": 8,
+    "type": "video",
+    "title": "Kitchen Actions & Utensils",
+    "youtubeId": "tTw2-aHcUEA",
+    "objectives": "Learn verbs and utensils used in the kitchen.",
+    "reviewable": false
+  },
+  {
+    "day": 9,
+    "type": "video",
+    "title": "Cooking a Simple Recipe",
+    "youtubeId": "tTw2-aHcUEA",
+    "objectives": "Watch and understand a simple cooking demonstration in English.",
+    "reviewable": false
+  },
+  {
+    "day": 10,
+    "type": "chat",
+    "title": "Week 2 Review: Shopping & Cooking",
+    "prompt": "Ask the learner to describe a shopping trip and a simple recipe in English. Give feedback and encouragement.",
+    "objectives": "Review shopping and cooking vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 11,
+    "type": "video",
+    "title": "Public Transport Vocabulary",
+    "youtubeId": "ca9xmNnQICw",
+    "objectives": "Learn words and phrases for using buses and autos.",
+    "reviewable": false
+  },
+  {
+    "day": 12,
+    "type": "video",
+    "title": "Asking for Directions",
+    "youtubeId": "difmdxph4cY",
+    "objectives": "Learn how to ask and give directions in English.",
+    "reviewable": false
+  },
+  {
+    "day": 13,
+    "type": "video",
+    "title": "At the Doctor's Clinic",
+    "youtubeId": "5xZYFPJ0fps",
+    "objectives": "Learn phrases for visiting a doctor and describing symptoms.",
+    "reviewable": false
+  },
+  {
+    "day": 14,
+    "type": "video",
+    "title": "Health and Wellness",
+    "youtubeId": "6DU_TLebnLU",
+    "objectives": "Learn vocabulary for health and wellness.",
+    "reviewable": false
+  },
+  {
+    "day": 15,
+    "type": "chat",
+    "title": "Week 3 Review: Transport & Health",
+    "prompt": "Ask the learner to describe a bus journey and a doctor's visit in English. Give feedback and encouragement.",
+    "objectives": "Review transport and health vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 16,
+    "type": "video",
+    "title": "Banking and Money",
+    "youtubeId": "q_HL_kHzbNM",
+    "objectives": "Learn words and phrases for banking and handling money.",
+    "reviewable": false
+  },
+  {
+    "day": 17,
+    "type": "video",
+    "title": "Making Phone Calls",
+    "youtubeId": "nkkf1fcL5R8",
+    "objectives": "Learn how to make and receive phone calls in English.",
+    "reviewable": false
+  },
+  {
+    "day": 18,
+    "type": "video",
+    "title": "School and Education",
+    "youtubeId": "24GWC1dDyUM",
+    "objectives": "Learn vocabulary for school and talking to teachers.",
+    "reviewable": false
+  },
+  {
+    "day": 19,
+    "type": "video",
+    "title": "Talking to Neighbors",
+    "youtubeId": "24GWC1dDyUM",
+    "objectives": "Learn phrases for friendly neighbor conversations.",
+    "reviewable": false
+  },
+  {
+    "day": 20,
+    "type": "chat",
+    "title": "Week 4 Review: Money, Phone, School",
+    "prompt": "Ask the learner to roleplay a phone call and a school conversation in English. Give feedback and encouragement.",
+    "objectives": "Review money, phone, and school vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 21,
+    "type": "video",
+    "title": "Restaurant and Food Vocabulary",
+    "youtubeId": "bgfdqVmVjfk",
+    "objectives": "Learn words and phrases for eating out and ordering food.",
+    "reviewable": false
+  },
+  {
+    "day": 22,
+    "type": "video",
+    "title": "Shopping for Clothes",
+    "youtubeId": "ijQDxwUGIOg",
+    "objectives": "Learn vocabulary for shopping for clothes and accessories.",
+    "reviewable": false
+  },
+  {
+    "day": 23,
+    "type": "video",
+    "title": "Describing Weather",
+    "youtubeId": "IlyDCVnlJZ0",
+    "objectives": "Learn to describe weather and seasons in English.",
+    "reviewable": false
+  },
+  {
+    "day": 24,
+    "type": "video",
+    "title": "Road Safety and Traffic Signs",
+    "youtubeId": "ca9xmNnQICw",
+    "objectives": "Learn about road safety and understanding traffic signs.",
+    "reviewable": false
+  },
+  {
+    "day": 25,
+    "type": "chat",
+    "title": "Week 5 Review: Food, Shopping, Weather",
+    "prompt": "Ask the learner to describe a restaurant visit and talk about the weather in English. Give feedback and encouragement.",
+    "objectives": "Review food, shopping, and weather vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 26,
+    "type": "video",
+    "title": "Festivals and Celebrations",
+    "youtubeId": "24GWC1dDyUM",
+    "objectives": "Learn vocabulary for festivals and celebrations.",
+    "reviewable": false
+  },
+  {
+    "day": 27,
+    "type": "video",
+    "title": "Describing Hobbies",
+    "youtubeId": "24GWC1dDyUM",
+    "objectives": "Learn to talk about hobbies and interests in English.",
+    "reviewable": false
+  },
+  {
+    "day": 28,
+    "type": "video",
+    "title": "Simple Conversations at Home",
+    "youtubeId": "Fw0rdSHzWFY",
+    "objectives": "Watch and understand simple home conversations in English.",
+    "reviewable": false
+  },
+  {
+    "day": 29,
+    "type": "video",
+    "title": "Public Places Vocabulary",
+    "youtubeId": "difmdxph4cY",
+    "objectives": "Learn vocabulary for public places like parks, markets, and hospitals.",
+    "reviewable": false
+  },
+  {
+    "day": 30,
+    "type": "chat",
+    "title": "Week 6 Review: Festivals, Hobbies, Public Places",
+    "prompt": "Ask the learner to talk about a festival and describe a public place in English. Give feedback and encouragement.",
+    "objectives": "Review festivals, hobbies, and public places vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 31,
+    "type": "chat",
+    "title": "Roleplay: Shopping for Groceries",
+    "prompt": "Practice a conversation at a grocery store. Ask for items, prices, and quantities in English.",
+    "objectives": "Practice shopping for groceries in English.",
+    "reviewable": false
+  },
+  {
+    "day": 32,
+    "type": "video",
+    "title": "Grocery Shopping in English",
+    "youtubeId": "ijQDxwUGIOg",
+    "objectives": "Watch a real-life grocery shopping conversation in English.",
+    "reviewable": false
+  },
+  {
+    "day": 33,
+    "type": "chat",
+    "title": "Roleplay: Asking for Directions",
+    "prompt": "Practice asking and giving directions in English. Use common landmarks and phrases.",
+    "objectives": "Practice giving and receiving directions in English.",
+    "reviewable": false
+  },
+  {
+    "day": 34,
+    "type": "video",
+    "title": "Directions and Landmarks",
+    "youtubeId": "difmdxph4cY",
+    "objectives": "Learn about common landmarks and how to describe them in English.",
+    "reviewable": false
+  },
+  {
+    "day": 35,
+    "type": "chat",
+    "title": "Week 7 Review: Shopping & Directions",
+    "prompt": "Ask the learner to roleplay a shopping and directions conversation in English. Give feedback and encouragement.",
+    "objectives": "Review shopping and directions vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 36,
+    "type": "chat",
+    "title": "Roleplay: At the Doctor's",
+    "prompt": "Practice a conversation with a doctor. Describe symptoms and ask for advice in English.",
+    "objectives": "Practice talking to a doctor in English.",
+    "reviewable": false
+  },
+  {
+    "day": 37,
+    "type": "video",
+    "title": "Doctor-Patient Conversations",
+    "youtubeId": "5xZYFPJ0fps",
+    "objectives": "Watch a doctor-patient conversation in English.",
+    "reviewable": false
+  },
+  {
+    "day": 38,
+    "type": "chat",
+    "title": "Roleplay: Talking to a Teacher",
+    "prompt": "Practice a conversation with a teacher about your child's progress in English.",
+    "objectives": "Practice talking to teachers in English.",
+    "reviewable": false
+  },
+  {
+    "day": 39,
+    "type": "video",
+    "title": "Parent-Teacher Meetings",
+    "youtubeId": "24GWC1dDyUM",
+    "objectives": "Learn about parent-teacher meetings and common phrases used.",
+    "reviewable": false
+  },
+  {
+    "day": 40,
+    "type": "chat",
+    "title": "Week 8 Review: Health & School",
+    "prompt": "Ask the learner to roleplay a doctor's visit and a parent-teacher meeting in English. Give feedback and encouragement.",
+    "objectives": "Review health and school vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 41,
+    "type": "chat",
+    "title": "Roleplay: At a Restaurant",
+    "prompt": "Practice ordering food and asking about dishes in English.",
+    "objectives": "Practice restaurant conversations in English.",
+    "reviewable": false
+  },
+  {
+    "day": 42,
+    "type": "video",
+    "title": "Ordering Food in English",
+    "youtubeId": "bgfdqVmVjfk",
+    "objectives": "Watch a restaurant ordering conversation in English.",
+    "reviewable": false
+  },
+  {
+    "day": 43,
+    "type": "chat",
+    "title": "Roleplay: Talking to a Neighbor",
+    "prompt": "Practice a friendly conversation with a neighbor in English.",
+    "objectives": "Practice neighborly conversations in English.",
+    "reviewable": false
+  },
+  {
+    "day": 44,
+    "type": "video",
+    "title": "Friendly Conversations",
+    "youtubeId": "Fw0rdSHzWFY",
+    "objectives": "Learn about friendly conversations and small talk in English.",
+    "reviewable": false
+  },
+  {
+    "day": 45,
+    "type": "chat",
+    "title": "Week 9 Review: Restaurant & Neighbors",
+    "prompt": "Ask the learner to roleplay a restaurant and neighbor conversation in English. Give feedback and encouragement.",
+    "objectives": "Review restaurant and neighbor vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 46,
+    "type": "chat",
+    "title": "Roleplay: At the Bank",
+    "prompt": "Practice a conversation at the bank. Ask about deposits, withdrawals, and account information in English.",
+    "objectives": "Practice banking conversations in English.",
+    "reviewable": false
+  },
+  {
+    "day": 47,
+    "type": "video",
+    "title": "Banking in English",
+    "youtubeId": "q_HL_kHzbNM",
+    "objectives": "Learn about banking and money-related conversations in English.",
+    "reviewable": false
+  },
+  {
+    "day": 48,
+    "type": "chat",
+    "title": "Roleplay: Emergency Situations",
+    "prompt": "Practice asking for help in emergencies in English.",
+    "objectives": "Practice emergency conversations in English.",
+    "reviewable": false
+  },
+  {
+    "day": 49,
+    "type": "video",
+    "title": "Emergency English",
+    "youtubeId": "5xZYFPJ0fps",
+    "objectives": "Learn about emergency situations and vocabulary in English.",
+    "reviewable": false
+  },
+  {
+    "day": 50,
+    "type": "chat",
+    "title": "Week 10 Review: Bank & Emergency",
+    "prompt": "Ask the learner to roleplay a bank and emergency conversation in English. Give feedback and encouragement.",
+    "objectives": "Review bank and emergency vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 51,
+    "type": "chat",
+    "title": "Roleplay: Public Speaking",
+    "prompt": "Practice introducing yourself and speaking in front of a group in English.",
+    "objectives": "Practice public speaking in English.",
+    "reviewable": false
+  },
+  {
+    "day": 52,
+    "type": "video",
+    "title": "Public Speaking Skills",
+    "youtubeId": "t_-XiqRsSlw",
+    "objectives": "Learn about public speaking and presentation skills in English.",
+    "reviewable": false
+  },
+  {
+    "day": 53,
+    "type": "chat",
+    "title": "Roleplay: Expressing Opinions",
+    "prompt": "Practice expressing your opinion and preferences in English.",
+    "objectives": "Practice expressing opinions in English.",
+    "reviewable": false
+  },
+  {
+    "day": 54,
+    "type": "video",
+    "title": "Expressing Feelings in English",
+    "youtubeId": "Fw0rdSHzWFY",
+    "objectives": "Learn about expressing feelings and emotions in English.",
+    "reviewable": false
+  },
+  {
+    "day": 55,
+    "type": "chat",
+    "title": "Week 11 Review: Speaking & Opinions",
+    "prompt": "Ask the learner to roleplay a public speaking and opinion conversation in English. Give feedback and encouragement.",
+    "objectives": "Review public speaking and opinion vocabulary.",
+    "reviewable": true
+  },
+  {
+    "day": 56,
+    "type": "chat",
+    "title": "Roleplay: Welcoming Guests",
+    "prompt": "Practice welcoming guests and making them comfortable in English.",
+    "objectives": "Practice hospitality and welcoming in English.",
+    "reviewable": false
+  },
+  {
+    "day": 57,
+    "type": "video",
+    "title": "Hospitality in English",
+    "youtubeId": "Fw0rdSHzWFY",
+    "objectives": "Learn about hospitality and welcoming guests in English.",
+    "reviewable": false
+  },
+  {
+    "day": 58,
+    "type": "chat",
+    "title": "Roleplay: Final Conversation",
+    "prompt": "Practice a conversation covering all major topics learned so far in English.",
+    "objectives": "Practice a comprehensive conversation in English.",
+    "reviewable": false
+  },
+  {
+    "day": 59,
+    "type": "video",
+    "title": "English Recap & Motivation",
+    "youtubeId": "Fw0rdSHzWFY",
+    "objectives": "Recap all major topics and motivate continued learning.",
+    "reviewable": false
+  },
+  {
+    "day": 60,
+    "type": "chat",
+    "title": "Final Review & Congratulations!",
+    "prompt": "Ask the learner to reflect on their learning journey and practice a final conversation in English. Celebrate their progress!",
+    "objectives": "Comprehensive review and celebration of the learning journey.",
+    "reviewable": true
+  }
+]
