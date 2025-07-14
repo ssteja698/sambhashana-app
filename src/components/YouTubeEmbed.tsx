@@ -18,6 +18,7 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [hasRestoredTimestamp, setHasRestoredTimestamp] = useState(false);
+  const [currentVideoId, setCurrentVideoId] = useState<string>('');
   
   const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,6 +33,23 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
         await youtubeAPI.loadAPI();
         
         if (!mounted || !containerRef.current || !lesson.youtubeId) return;
+
+        // Destroy existing player if video ID changed
+        if (playerRef.current && currentVideoId !== lesson.youtubeId) {
+          try {
+            playerRef.current.destroy();
+          } catch (error) {
+            console.error('Error destroying player:', error);
+          }
+          playerRef.current = null;
+        }
+
+        // Reset state for new video
+        setIsPlayerReady(false);
+        setCurrentTime(0);
+        setDuration(0);
+        setHasRestoredTimestamp(false);
+        setCurrentVideoId(lesson.youtubeId);
 
         // Get saved timestamp
         const savedTime = getVideoTimestamp(lesson.youtubeId);
@@ -50,7 +68,7 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
           },
           events: {
             onReady: (event: any) => {
-              if (!mounted) return;
+              if (!mounted || currentVideoId !== lesson.youtubeId) return;
               setIsPlayerReady(true);
               if (savedTime > 0) {
                 event.target.seekTo(savedTime);
@@ -78,12 +96,21 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
 
     return () => {
       mounted = false;
+      // Cleanup player on unmount
+      if (playerRef.current) {
+        try {
+          playerRef.current.destroy();
+        } catch (error) {
+          console.error('Error destroying player on unmount:', error);
+        }
+        playerRef.current = null;
+      }
     };
-  }, [lesson.youtubeId]);
+  }, [lesson.youtubeId, currentVideoId]);
 
   // Update current time periodically
   useEffect(() => {
-    if (!isPlayerReady || !lesson.youtubeId) return;
+    if (!isPlayerReady || currentVideoId !== lesson.youtubeId) return;
 
     const interval = setInterval(() => {
       if (playerRef.current && playerRef.current.getCurrentTime) {
@@ -104,7 +131,7 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isPlayerReady, lesson.youtubeId]);
+  }, [isPlayerReady, lesson.youtubeId, currentVideoId]);
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
@@ -122,8 +149,6 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
         <h2 className="text-lg md:text-xl font-bold mb-4 telugu-text">
           YouTube పాఠం | YouTube Lesson
         </h2>
-
-
 
         {/* Info Box */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 md:p-4 mb-4 md:mb-6">
