@@ -2,17 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { FiVolume2, FiVolumeX } from "react-icons/fi";
 import type { Lesson } from "../services/LessonScheduler";
 import { getVideoTimestamp, saveVideoTimestamp, getVideoProgressData, formatTime } from "../utils/videoProgress";
+import { youtubeAPI } from "../utils/youtubeAPI";
 
 interface YouTubeEmbedProps {
   lesson: Lesson;
   onComplete: () => void;
-}
-
-declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
 }
 
 export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
@@ -28,62 +22,64 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
   const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Load YouTube API
+  // Load YouTube API and create player
   useEffect(() => {
-    if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-    }
+    let mounted = true;
 
-    window.onYouTubeIframeAPIReady = () => {
-      createPlayer();
+    const initializePlayer = async () => {
+      try {
+        // Load YouTube API using singleton manager
+        await youtubeAPI.loadAPI();
+        
+        if (!mounted || !containerRef.current || !lesson.youtubeId) return;
+
+        // Get saved timestamp
+        const savedTime = getVideoTimestamp(lesson.youtubeId);
+
+        // Create player
+        playerRef.current = new window.YT.Player(containerRef.current, {
+          height: '100%',
+          width: '100%',
+          videoId: lesson.youtubeId,
+          playerVars: {
+            rel: 0,
+            playsinline: 1,
+            enablejsapi: 1,
+            origin: window.location.origin,
+            start: savedTime > 0 ? savedTime : 0,
+          },
+          events: {
+            onReady: (event: any) => {
+              if (!mounted) return;
+              setIsPlayerReady(true);
+              if (savedTime > 0) {
+                event.target.seekTo(savedTime);
+                setHasRestoredTimestamp(true);
+              }
+            },
+            onStateChange: (event: any) => {
+              // Save timestamp when video is paused or ended
+              if (event.data === window.YT.PlayerState.PAUSED || 
+                  event.data === window.YT.PlayerState.ENDED) {
+                const currentTime = event.target.getCurrentTime();
+                if (lesson.youtubeId) {
+                  saveVideoTimestamp(lesson.youtubeId, currentTime);
+                }
+              }
+            },
+          },
+        });
+      } catch (error) {
+        console.error('Error initializing YouTube player:', error);
+      }
     };
 
-    if (window.YT && window.YT.Player) {
-      createPlayer();
-    }
+    initializePlayer();
+
+    return () => {
+      mounted = false;
+    };
   }, [lesson.youtubeId]);
-
-  const createPlayer = () => {
-    if (!containerRef.current || !lesson.youtubeId) return;
-
-    // Get saved timestamp
-    const savedTime = getVideoTimestamp(lesson.youtubeId);
-
-    playerRef.current = new window.YT.Player(containerRef.current, {
-      height: '100%',
-      width: '100%',
-      videoId: lesson.youtubeId,
-      playerVars: {
-        rel: 0,
-        playsinline: 1,
-        enablejsapi: 1,
-        origin: window.location.origin,
-        start: savedTime > 0 ? savedTime : 0,
-      },
-      events: {
-        onReady: (event: any) => {
-          setIsPlayerReady(true);
-          if (savedTime > 0) {
-            event.target.seekTo(savedTime);
-            setHasRestoredTimestamp(true);
-          }
-        },
-        onStateChange: (event: any) => {
-          // Save timestamp when video is paused or ended
-          if (event.data === window.YT.PlayerState.PAUSED || 
-              event.data === window.YT.PlayerState.ENDED) {
-            const currentTime = event.target.getCurrentTime();
-            if (lesson.youtubeId) {
-              saveVideoTimestamp(lesson.youtubeId, currentTime);
-            }
-          }
-        },
-      },
-    });
-  };
 
   // Update current time periodically
   useEffect(() => {
@@ -91,14 +87,18 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
 
     const interval = setInterval(() => {
       if (playerRef.current && playerRef.current.getCurrentTime) {
-        const time = playerRef.current.getCurrentTime();
-        const dur = playerRef.current.getDuration();
-        setCurrentTime(time);
-        setDuration(dur);
-        
-        // Save timestamp every 5 seconds
-        if (Math.floor(time) % 5 === 0 && lesson.youtubeId) {
-          saveVideoTimestamp(lesson.youtubeId, time);
+        try {
+          const time = playerRef.current.getCurrentTime();
+          const dur = playerRef.current.getDuration();
+          setCurrentTime(time);
+          setDuration(dur);
+          
+          // Save timestamp every 5 seconds
+          if (Math.floor(time) % 5 === 0 && lesson.youtubeId) {
+            saveVideoTimestamp(lesson.youtubeId, time);
+          }
+        } catch (error) {
+          console.error('Error getting video time:', error);
         }
       }
     }, 1000);
@@ -123,19 +123,7 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
           YouTube పాఠం | YouTube Lesson
         </h2>
 
-        {/* Progress Indicator */}
-        {progressData && progressData.timestamp > 0 && (
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 md:p-4 mb-4 md:mb-6">
-            <div className="flex items-center gap-2 text-blue-800">
-              <span>📺</span>
-              <span className="telugu-text">మీరు {formatTime(progressData.timestamp)} నుండి కొనసాగుతున్నారు</span>
-              <span>| Resumed from {formatTime(progressData.timestamp)}</span>
-              {hasRestoredTimestamp && (
-                <span className="text-green-600">✓</span>
-              )}
-            </div>
-          </div>
-        )}
+
 
         {/* Info Box */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 md:p-4 mb-4 md:mb-6">
@@ -186,6 +174,13 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
                 )}
               </button>
             </div>
+
+            {/* Loading indicator */}
+            {!isPlayerReady && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                <div className="text-gray-600">Loading video...</div>
+              </div>
+            )}
           </div>
         </div>
 
