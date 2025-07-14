@@ -4,7 +4,7 @@
   "description": "Learn spoken English through daily lessons for Telugu-speaking housewives",
   "start_url": "/",
   "scope": "/",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ed7a1a",
   "orientation": "portrait-primary",

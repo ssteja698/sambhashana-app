@@ -1,10 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FiVolume2, FiVolumeX } from "react-icons/fi";
 import type { Lesson } from "../services/LessonScheduler";
+import { getVideoTimestamp, saveVideoTimestamp, getVideoProgressData, formatTime } from "../utils/videoProgress";
 
 interface YouTubeEmbedProps {
   lesson: Lesson;
   onComplete: () => void;
+}
+
+declare global {
+  interface Window {
+    YT: any;
+    onYouTubeIframeAPIReady: () => void;
+  }
 }
 
 export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
@@ -12,7 +20,91 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
   onComplete,
 }) => {
   const [isMuted, setIsMuted] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [hasRestoredTimestamp, setHasRestoredTimestamp] = useState(false);
+  
+  const playerRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Load YouTube API
+  useEffect(() => {
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    }
+
+    window.onYouTubeIframeAPIReady = () => {
+      createPlayer();
+    };
+
+    if (window.YT && window.YT.Player) {
+      createPlayer();
+    }
+  }, [lesson.youtubeId]);
+
+  const createPlayer = () => {
+    if (!containerRef.current || !lesson.youtubeId) return;
+
+    // Get saved timestamp
+    const savedTime = getVideoTimestamp(lesson.youtubeId);
+
+    playerRef.current = new window.YT.Player(containerRef.current, {
+      height: '100%',
+      width: '100%',
+      videoId: lesson.youtubeId,
+      playerVars: {
+        rel: 0,
+        playsinline: 1,
+        enablejsapi: 1,
+        origin: window.location.origin,
+        start: savedTime > 0 ? savedTime : 0,
+      },
+      events: {
+        onReady: (event: any) => {
+          setIsPlayerReady(true);
+          if (savedTime > 0) {
+            event.target.seekTo(savedTime);
+            setHasRestoredTimestamp(true);
+          }
+        },
+        onStateChange: (event: any) => {
+          // Save timestamp when video is paused or ended
+          if (event.data === window.YT.PlayerState.PAUSED || 
+              event.data === window.YT.PlayerState.ENDED) {
+            const currentTime = event.target.getCurrentTime();
+            if (lesson.youtubeId) {
+              saveVideoTimestamp(lesson.youtubeId, currentTime);
+            }
+          }
+        },
+      },
+    });
+  };
+
+  // Update current time periodically
+  useEffect(() => {
+    if (!isPlayerReady || !lesson.youtubeId) return;
+
+    const interval = setInterval(() => {
+      if (playerRef.current && playerRef.current.getCurrentTime) {
+        const time = playerRef.current.getCurrentTime();
+        const dur = playerRef.current.getDuration();
+        setCurrentTime(time);
+        setDuration(dur);
+        
+        // Save timestamp every 5 seconds
+        if (Math.floor(time) % 5 === 0 && lesson.youtubeId) {
+          saveVideoTimestamp(lesson.youtubeId, time);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isPlayerReady, lesson.youtubeId]);
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
@@ -22,7 +114,7 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
     onComplete();
   };
 
-  const youtubeEmbedUrl = `https://www.youtube.com/embed/${lesson.youtubeId}?rel=0&playsinline=1&enablejsapi=1&origin=${window.location.origin}`;
+  const progressData = lesson.youtubeId ? getVideoProgressData(lesson.youtubeId) : null;
 
   return (
     <div className="max-w-full md:max-w-2xl mx-auto p-2 md:p-6">
@@ -30,6 +122,20 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
         <h2 className="text-lg md:text-xl font-bold mb-4 telugu-text">
           YouTube పాఠం | YouTube Lesson
         </h2>
+
+        {/* Progress Indicator */}
+        {progressData && progressData.timestamp > 0 && (
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 md:p-4 mb-4 md:mb-6">
+            <div className="flex items-center gap-2 text-blue-800">
+              <span>📺</span>
+              <span className="telugu-text">మీరు {formatTime(progressData.timestamp)} నుండి కొనసాగుతున్నారు</span>
+              <span>| Resumed from {formatTime(progressData.timestamp)}</span>
+              {hasRestoredTimestamp && (
+                <span className="text-green-600">✓</span>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Info Box */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 md:p-4 mb-4 md:mb-6">
@@ -59,16 +165,15 @@ export const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
             className="relative bg-black rounded-2xl overflow-hidden min-h-[180px] md:min-h-[320px]"
             style={{ aspectRatio: "16/9" }}
           >
-            <iframe
-              ref={iframeRef}
-              src={youtubeEmbedUrl}
-              className="w-full h-full min-h-[180px] md:min-h-[320px]"
-              title={lesson.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-            {/* Video Controls Overlay (for visual feedback) */}
+            <div ref={containerRef} className="w-full h-full min-h-[180px] md:min-h-[320px]" />
+            
+            {/* Video Controls Overlay */}
             <div className="absolute bottom-4 right-4 flex items-center space-x-2">
+              {isPlayerReady && (
+                <div className="bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
+              )}
               <button
                 onClick={toggleMute}
                 className="p-2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-colors"
